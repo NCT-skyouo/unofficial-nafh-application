@@ -1,0 +1,79 @@
+{
+  "name": "nafh-application",
+  "productName": "nafh-application",
+  "version": "1.0.0",
+  "description": "My Electron application description",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make",
+    "publish": "electron-forge publish",
+    "lint": "echo \"No linting configured\""
+  },
+  "keywords": [],
+  "author": {
+    "name": "skyouo0727"
+  },
+  "license": "MIT",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "nafh-application",
+	    "setupIcon": "./src/icon.ico",
+	    "iconUrl": "./src/icon.ico"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {
+            "options": {
+		"name": "nafh-application",
+		"categories": ["Network"],
+		"description": "不用開瀏覽器就可以訪問 NAFH 控制面板.",
+		"icon": "./src/icon.png",
+		"maintainer": "skyouo0727",
+		"version": "1.0.0",
+		"productName": "NAFH 控制面板應用程式",
+		"genericName": "NAFH 控制面板應用程式"
+            }
+          }
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {
+            "options": {
+                "name": "nafh-application",
+                "categories": ["Network"],
+                "description": "不用開瀏覽器就可以訪問 NAFH 控制面板.",
+                "icon": "./src/icon.png",
+                "maintainer": "skyouo0727",
+                "version": "1.0.0",
+                "productName": "NAFH 控制面板應用程式",
+                "genericName": "NAFH 控制面板應用程式"
+            }
+          }
+        },
+	{
+	  "name": "",
+	  "config": {}
+	}
+      ]
+    }
+  },
+  "dependencies": {
+    "electron-squirrel-startup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.61",
+    "@electron-forge/maker-deb": "^6.0.0-beta.61",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.61",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.61",
+    "@electron-forge/maker-zip": "^6.0.0-beta.61",
+    "electron": "15.3.0"
+  }
+}
