@@ -24,8 +24,8 @@
           "name": "@electron-forge/maker-squirrel",
           "config": {
             "name": "nafh-application",
-            "setupIcon": "./src/icon.ico",
-            "iconUrl": "./src/icon.ico"
+            "setupIcon": "file:./src/icon.ico",
+            "iconUrl": "file:./src/icon.ico"
           }
         },
         {
