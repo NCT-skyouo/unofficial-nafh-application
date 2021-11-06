@@ -39,5 +39,9 @@ jobs:
       - run: npm run publish
   ls:
     runs-on: ubuntu-latest
+    needs: [build-linux, build-macos, build-windows]
+    defaults:
+      run:
+        shell: bash
     steps:
       - run: ls
