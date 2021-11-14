@@ -19,6 +19,38 @@ jobs:
           node-version: 16
       - run: npm i
       - run: npm run publish
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.vars.outputs.sha_short }}
+          release_name: 'Unofficial NAFH Application "${{ steps.vars.outputs.sha_short }}"'
+          body: |
+            ## This is an auto release by GitHub CI.
+          draft: false
+          prerelease: true
+      - name: Upload deb pkg
+        id: upload-deb-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/make/deb/x64/nafh-application_1.0.0_amd64.deb
+          asset_name: nafh-application.deb
+          asset_content_type: application/vnd.debian.binary-package
+      - name: Upload rpm pkg
+        id: upload-rpm-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./out/make/rpm/x64/nafh-application-1.0.0-1.x86_64.rpm
+          asset_name: nafh-application.rpm
+          asset_content_type: application/vnd.debian.binary-package
   build-windows:
     runs-on: windows-latest
     steps:
@@ -28,6 +60,16 @@ jobs:
           node-version: 16
       - run: npm i
       - run: npm run publish
+      - name: Upload windows executable file
+        id: upload-exe-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "./out/make/squirrel.windows/x64/application-1.0.0 Setup.exe"
+          asset_name: nafh-application.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
   build-macos:
     runs-on: macos-11
     steps:
@@ -37,11 +79,13 @@ jobs:
           node-version: 16
       - run: npm i
       - run: npm run publish
-  ls:
-    runs-on: ubuntu-latest
-    needs: [build-linux, build-macos, build-windows]
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - run: ls
+      - name: Upload macos dmg file
+        id: upload-dmg-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "./out/make/nafh-application-1.0.0-x64.dmg"
+          asset_name: nafh-application.dmg
+          asset_content_type: application/octet-stream
