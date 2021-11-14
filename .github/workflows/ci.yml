@@ -10,15 +10,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  pre-run:
+    runs-on: ubuntu-lastest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 16
-      - run: npm i
-      - run: npm run publish
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -31,6 +25,15 @@ jobs:
             ## This is an auto release by GitHub CI.
           draft: false
           prerelease: true
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+      - run: npm i
+      - run: npm run publish
       - name: Upload deb pkg
         id: upload-deb-release-asset
         uses: actions/upload-release-asset@v1
