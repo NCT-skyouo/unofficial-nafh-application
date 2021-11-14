@@ -8,7 +8,9 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
+    "make:win32": "electron-forge make --platform=win32",
     "publish": "electron-forge publish",
+    "publish:win32": "electron-forge publish --platform=win32",
     "lint": "echo \"No linting configured\""
   },
   "keywords": [],

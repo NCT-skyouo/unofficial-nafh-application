@@ -19,7 +19,7 @@ const createWindow = () => {
     app.dock.setIcon(image);
   }
 
-  mainWindow.loadURL(`https://panel.notafree.host/`);
+  mainWindow.loadURL(`https://login.notafree.host/`);
   mainWindow.setTitle('NAFH Not.A.Free.Host');
   mainWindow.setMenu(null);
   mainWindow.webContents.on('will-navigate', function(e, url) {
