@@ -82,7 +82,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: "${{ needs.pre-run.outputs.upload_url }}"
-          asset_path: "./out/make/squirrel.windows/x64/application-1.0.0 Setup.exe"
+          asset_path: "./out/make/squirrel.windows/x64/nafh-application-1.0.0 Setup.exe"
           asset_name: nafh-application.exe
           asset_content_type: application/vnd.microsoft.portable-executable
   build-macos:
