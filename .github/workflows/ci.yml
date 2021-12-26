@@ -12,6 +12,8 @@ on:
 jobs:
   pre-run:
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.set_upload_url.outputs.upload_url }}
     steps:
       - name: Checkout Git Repository
         uses: actions/checkout@v2
