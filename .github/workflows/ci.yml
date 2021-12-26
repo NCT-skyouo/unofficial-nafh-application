@@ -30,6 +30,9 @@ jobs:
             ## This is an auto release by GitHub CI.
           draft: false
           prerelease: true
+      - name: Set Upload URL
+        id: set_upload_url
+        run: echo "::set-output name=upload_url::${{ steps.create_release.outputs.upload_url }}"
   build-linux:
     needs: [pre-run]
     runs-on: ubuntu-latest
@@ -46,7 +49,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          upload_url: "${{ needs.pre-run.outputs.upload_url }}"
           asset_path: ./out/make/deb/x64/nafh-application_1.0.0_amd64.deb
           asset_name: nafh-application.deb
           asset_content_type: application/vnd.debian.binary-package
@@ -56,7 +59,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          upload_url: "${{ needs.pre-run.outputs.upload_url }}"
           asset_path: ./out/make/rpm/x64/nafh-application-1.0.0-1.x86_64.rpm
           asset_name: nafh-application.rpm
           asset_content_type: application/vnd.debian.binary-package
@@ -76,7 +79,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          upload_url: "${{ needs.pre-run.outputs.upload_url }}"
           asset_path: "./out/make/squirrel.windows/x64/application-1.0.0 Setup.exe"
           asset_name: nafh-application.exe
           asset_content_type: application/vnd.microsoft.portable-executable
@@ -96,7 +99,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: "${{ steps.create_release.outputs.upload_url }}"
+          upload_url: "${{ needs.pre-run.outputs.upload_url }}"
           asset_path: "./out/make/nafh-application-1.0.0-x64.dmg"
           asset_name: nafh-application.dmg
           asset_content_type: application/octet-stream
